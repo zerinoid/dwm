@@ -158,7 +158,8 @@ static const Key keys[] = {
      XK_semicolon,
      spawn,
      {.v = (const char *[]){"dmenuunicode", NULL}}},
-    /* { MODKEY|ShiftMask,		XK_grave,      togglescratch,	       SHCMD("")
+    /* { MODKEY|ShiftMask,		XK_grave,      togglescratch,
+     * SHCMD("")
      * },
      */
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
@@ -193,11 +194,11 @@ static const Key keys[] = {
      XK_w,
      spawn,
      {.v = (const char *[]){TERMINAL, "-e", "nmtui", NULL}}},
-    // { MODKEY,			XK_e,          spawn,                  SHCMD(TERMINAL "
-    // -e neomutt ; pkill -RTMIN+12 dwmblocks") },
+    // { MODKEY,			XK_e,          spawn,                  SHCMD(TERMINAL
+    // " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
     {MODKEY, XK_e, spawn, SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n")},
-    // { MODKEY|ShiftMask,		XK_e,          spawn,                  {.v =
-    // (const char*[]){ TERMINAL, "-e", "abook", NULL } } },
+    // { MODKEY|ShiftMask,		XK_e,          spawn,                  {.v
+    // = (const char*[]){ TERMINAL, "-e", "abook", NULL } } },
     {MODKEY | ShiftMask, XK_e, spawn,
      SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n -e "
            "\"(my/insert-todo-at-top)\"")},
@@ -336,7 +337,7 @@ static const Key keys[] = {
     {MODKEY, XK_F8, spawn, {.v = (const char *[]){"mailsync", NULL}}},
     {MODKEY, XK_F9, spawn, {.v = (const char *[]){"mounter", NULL}}},
     {MODKEY, XK_F10, spawn, {.v = (const char *[]){"unmounter", NULL}}},
-    // { MODKEY,			XK_F11,        spawn,                  SHCMD("mpv
+    // { MODKEY,			XK_F11,        spawn, SHCMD("mpv
     // --untimed
     // --no-cache --no-osc --no-input-default-bindings --profile=low-latency
     // --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail

@@ -17,17 +17,27 @@ static unsigned int gappov =
 static int swallowfloating =
     0; /* 1 means swallow floating windows by default */
 static int smartgaps =
-    0;                  /* 1 means no outer gap when there is only one window */
-static int showbar = 1; /* 0 means no bar */
-static int topbar = 1;  /* 0 means bottom bar */
+    0; /* 1 means no outer gap when there is only one window */
+static unsigned int systraypinning =
+    0; /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor
+          X */
+static unsigned int systrayonleft =
+    0; /* 0: systray in the right corner, >0: systray on left of status text */
+static unsigned int systrayspacing = 2; /* systray spacing */
+static int systraypinningfailfirst =
+    1; /* 1: if pinning fails, display systray on the first monitor, False:
+          display systray on the last monitor*/
+static int showsystray = 1; /* 0 means no systray */
+static int showbar = 1;     /* 0 means no bar */
+static int topbar = 1;      /* 0 means bottom bar */
 static char *fonts[] = {
-    "monospace:size=10",
+    "monospace:size=9",
     "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"};
-static char normbgcolor[] = "#222222";
-static char normbordercolor[] = "#444444";
-static char normfgcolor[] = "#bbbbbb";
+static char normbgcolor[] = "#39FF14";
+static char normbordercolor[] = "#39FF14";
+static char normfgcolor[] = "#39FF14";
 static char selfgcolor[] = "#eeeeee";
-static char selbordercolor[] = "#770777";
+static char selbordercolor[] = "#39FF14";
 static char selbgcolor[] = "#005577";
 static char *colors[][3] = {
     /*               fg           bg           border   */
@@ -146,6 +156,11 @@ ResourcePref resources[] = {
     {"gappov", INTEGER, &gappov},
     {"swallowfloating", INTEGER, &swallowfloating},
     {"smartgaps", INTEGER, &smartgaps},
+    {"systraypinning", INTEGER, &systraypinning},
+    {"systrayonleft", INTEGER, &systrayonleft},
+    {"systrayspacing", INTEGER, &systrayspacing},
+    {"systraypinningfailfirst", INTEGER, &systraypinningfailfirst},
+    {"showsystray", INTEGER, &showsystray},
 };
 
 #include "shiftview.c"

@@ -1,17 +1,17 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "st"
-#define TERMCLASS "St"
-#define BROWSER "librewolf"
+#define TERMINAL "alacritty"
+#define TERMCLASS "Alacritty"
+#define BROWSER "microsoft-edge"
 
 /* appearance */
 static unsigned int borderpx  = 3;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
-static unsigned int gappih    = 20;       /* horiz inner gap between windows */
-static unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
+static unsigned int gappih    = 8;       /* horiz inner gap between windows */
+static unsigned int gappiv    = 8;       /* vert inner gap between windows */
+static unsigned int gappoh    = 8;       /* horiz outer gap between windows and screen edge */
+static unsigned int gappov    = 8;       /* vert outer gap between windows and screen edge */
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            = 1;        /* 0 means no bar */
@@ -21,7 +21,7 @@ static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#770000";
+static char selbordercolor[]        = "#770777";
 static char selbgcolor[]            = "#005577";
 static char *colors[][3] = {
        /*               fg           bg           border   */
@@ -33,8 +33,8 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {TERMINAL, "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {"st", "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
@@ -55,8 +55,8 @@ static const Rule rules[] = {
 	{ NULL,       NULL,       "Event Tester", 0,          0,           0,          1,         -1 },
 	{ TERMCLASS,  "floatterm", NULL,       	 0,           1,           1,          0,         -1 },
 	{ TERMCLASS,  "bg",        NULL,       	 1 << 7,      0,           1,          0,         -1 },
-	{ TERMCLASS,  "spterm",    NULL,       	 SPTAG(0),    1,           1,          0,         -1 },
-	{ TERMCLASS,  "spcalc",    NULL,       	 SPTAG(1),    1,           1,          0,         -1 },
+	{ "St",       "spterm",    NULL,       	 SPTAG(0),    1,           1,          0,         -1 },
+	{ "St",       "spcalc",    NULL,       	 SPTAG(1),    1,           1,          0,         -1 },
 };
 
 /* layout(s) */
@@ -138,8 +138,8 @@ static const Key keys[] = {
 	/* modifier                     key            function                argument */
 	STACKKEYS(MODKEY,                              focus)
 	STACKKEYS(MODKEY|ShiftMask,                    push)
-	/* { MODKEY|ShiftMask,		XK_Escape,     spawn,	               SHCMD("") }, */
-	{ MODKEY,			XK_grave,      spawn,	               {.v = (const char*[]){ "dmenuunicode", NULL } } },
+	{ MODKEY|ShiftMask,		          XK_Escape,     spawn,	               SHCMD("randomwal") },
+	{ MODKEY,			XK_semicolon,      spawn,	               {.v = (const char*[]){ "dmenuunicode", NULL } } },
 	/* { MODKEY|ShiftMask,		XK_grave,      togglescratch,	       SHCMD("") }, */
 	TAGKEYS(			XK_1,          0)
 	TAGKEYS(			XK_2,          1)
@@ -165,8 +165,10 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_q,          spawn,                  {.v = (const char*[]){ "sysact", NULL } } },
 	{ MODKEY,			XK_w,          spawn,                  {.v = (const char*[]){ BROWSER, NULL } } },
 	{ MODKEY|ShiftMask,		XK_w,          spawn,                  {.v = (const char*[]){ TERMINAL, "-e", "nmtui", NULL } } },
-	{ MODKEY,			XK_e,          spawn,                  SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
-	{ MODKEY|ShiftMask,		XK_e,          spawn,                  {.v = (const char*[]){ TERMINAL, "-e", "abook", NULL } } },
+	// { MODKEY,			XK_e,          spawn,                  SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
+	{ MODKEY,			XK_e,          spawn,                  SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n") },
+	// { MODKEY|ShiftMask,		XK_e,          spawn,                  {.v = (const char*[]){ TERMINAL, "-e", "abook", NULL } } },
+  { MODKEY|ShiftMask,		XK_e,          spawn,                  SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n -e \"(my/insert-todo-at-top)\"") },
 	{ MODKEY,			XK_r,          spawn,                  {.v = (const char*[]){ TERMINAL, "-e", "lfub", NULL } } },
 	{ MODKEY|ShiftMask,		XK_r,          spawn,                  {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ MODKEY,			XK_t,          setlayout,              {.v = &layouts[0]} }, /* tile */
@@ -196,13 +198,13 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_d,          spawn,                  {.v = (const char*[]){ "passmenu", NULL } } },
 	{ MODKEY,			XK_f,          togglefullscr,          {0} },
 	{ MODKEY|ShiftMask,		XK_f,          setlayout,              {.v = &layouts[8]} },
-	{ MODKEY,			XK_g,          shiftview,              { .i = -1 } },
-	{ MODKEY|ShiftMask,		XK_g,          shifttag,               { .i = -1 } },
-	{ MODKEY,			XK_h,          setmfact,               {.f = -0.05} },
+	{ MODKEY,			XK_g,          setmfact,               {.f = -0.05} },
+	{ MODKEY,			XK_h,          shiftview,              { .i = -1 } },
+	{ MODKEY|ShiftMask,		XK_h,          shifttag,               { .i = -1 } },
 	/* J and K are automatically bound above in STACKEYS */
-	{ MODKEY,			XK_l,          setmfact,               {.f = +0.05} },
-	{ MODKEY,			XK_semicolon,  shiftview,              { .i = 1 } },
-	{ MODKEY|ShiftMask,		XK_semicolon,  shifttag,               { .i = 1 } },
+	{ MODKEY,			XK_l,	       shiftview,              { .i = 1 } },
+	{ MODKEY|ShiftMask,		XK_l,          shifttag,               { .i = 1 } },
+	{ MODKEY,			XK_ccedilla,   setmfact,               {.f = +0.05} },
 	{ MODKEY,			XK_apostrophe, togglescratch,          {.ui = 1} },
 	/* { MODKEY|ShiftMask,		XK_apostrophe, spawn,                  SHCMD("") }, */
 	{ MODKEY|ShiftMask,		XK_apostrophe, togglesmartgaps,        {0} },
@@ -248,7 +250,8 @@ static const Key keys[] = {
 	{ MODKEY,			XK_F8,         spawn,                  {.v = (const char*[]){ "mailsync", NULL } } },
 	{ MODKEY,			XK_F9,         spawn,                  {.v = (const char*[]){ "mounter", NULL } } },
 	{ MODKEY,			XK_F10,        spawn,                  {.v = (const char*[]){ "unmounter", NULL } } },
-	{ MODKEY,			XK_F11,        spawn,                  SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	// { MODKEY,			XK_F11,        spawn,                  SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	{ MODKEY,			XK_F11,        spawn,                  SHCMD("demacs") },
 	{ MODKEY,			XK_F12,        spawn,                  SHCMD("remaps") },
 	{ MODKEY,			XK_space,      zoom,                   {0} },
 	{ MODKEY|ShiftMask,		XK_space,      togglefloating,         {0} },

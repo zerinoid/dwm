@@ -66,6 +66,7 @@ static const Rule rules[] = {
     {TERMCLASS, "bg", NULL, 1 << 7, 0, 1, 0, -1},
     {"St", "spterm", NULL, SPTAG(0), 1, 1, 0, -1},
     {"St", "spcalc", NULL, SPTAG(1), 1, 1, 0, -1},
+    {"Sxiv", "float_sc", NULL, SPTAG(1), 1, 1, 0, -1},
 };
 
 /* layout(s) */
@@ -194,11 +195,11 @@ static const Key keys[] = {
      XK_w,
      spawn,
      {.v = (const char *[]){TERMINAL, "-e", "nmtui", NULL}}},
-    // { MODKEY,			XK_e,          spawn,                  SHCMD(TERMINAL
-    // " -e neomutt ; pkill -RTMIN+12 dwmblocks") },
+    // { MODKEY,			XK_e,          spawn, SHCMD(TERMINAL "
+    // -e neomutt ; pkill -RTMIN+12 dwmblocks") },
     {MODKEY, XK_e, spawn, SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n")},
-    // { MODKEY|ShiftMask,		XK_e,          spawn,                  {.v
-    // = (const char*[]){ TERMINAL, "-e", "abook", NULL } } },
+    // { MODKEY|ShiftMask,		XK_e,          spawn, {.v = (const
+    // char*[]){ TERMINAL, "-e", "abook", NULL } } },
     {MODKEY | ShiftMask, XK_e, spawn,
      SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n -e "
            "\"(my/insert-todo-at-top)\"")},
@@ -209,7 +210,7 @@ static const Key keys[] = {
     {MODKEY | ShiftMask,
      XK_r,
      spawn,
-     {.v = (const char *[]){TERMINAL, "-e", "htop", NULL}}},
+     {.v = (const char *[]){TERMINAL, "-e", "btm", "--mem_as_value", NULL}}},
     {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},             /* tile */
     {MODKEY | ShiftMask, XK_t, setlayout, {.v = &layouts[1]}}, /* bstack */
     {MODKEY, XK_y, setlayout, {.v = &layouts[2]}},             /* spiral */
@@ -248,13 +249,18 @@ static const Key keys[] = {
     {MODKEY, XK_a, togglegaps, {0}},
     {MODKEY | ShiftMask, XK_a, defaultgaps, {0}},
     {MODKEY, XK_s, togglesticky, {0}},
-    /* { MODKEY|ShiftMask,		XK_s,          spawn, SHCMD("")
-       }, */
+    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("snp")},
     {MODKEY, XK_d, spawn, {.v = (const char *[]){"dmenu_run", NULL}}},
+    {MODKEY | ControlMask,
+     XK_d,
+     spawn,
+     {.v = (const char *[]){"rofi", "-no-lazy-grab", "-show", "drun", "-theme",
+                            "/home/zerinol/.config/rofi/rofi.rasi", NULL}}},
     {MODKEY | ShiftMask,
      XK_d,
      spawn,
-     {.v = (const char *[]){"passmenu", NULL}}},
+     {.v = (const char *[]){"maimtemp", NULL}}},
+    // {.v = (const char *[]){"passmenu", NULL}}},
     {MODKEY, XK_f, togglefullscr, {0}},
     {MODKEY | ShiftMask, XK_f, setlayout, {.v = &layouts[8]}},
     {MODKEY, XK_g, setmfact, {.f = -0.05}},

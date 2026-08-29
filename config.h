@@ -180,10 +180,7 @@ static const Key keys[] = {
      SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+; kill -44 $(pidof "
            "dwmblocks)")},
     {MODKEY, XK_BackSpace, spawn, {.v = (const char *[]){"sysact", NULL}}},
-    {MODKEY | ShiftMask,
-     XK_BackSpace,
-     spawn,
-     {.v = (const char *[]){"sysact", NULL}}},
+    {MODKEY | ShiftMask, XK_BackSpace, spawn, SHCMD("kill -HUP $(pidof dwm)")},
 
     {MODKEY, XK_Tab, view, {0}},
     /* { MODKEY|ShiftMask,		XK_Tab,	       spawn, SHCMD("")

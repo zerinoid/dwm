@@ -244,6 +244,8 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_a, defaultgaps, {0}},
     {MODKEY, XK_s, togglesticky, {0}},
     {MODKEY | ShiftMask, XK_s, spawn, SHCMD("snp")},
+    {MODKEY | ControlMask, XK_s, spawn,
+     SHCMD("sleep 0.5 && systemctl suspend -i")},
     {MODKEY, XK_d, spawn, {.v = (const char *[]){"dmenu_run", NULL}}},
     {MODKEY | ControlMask,
      XK_d,

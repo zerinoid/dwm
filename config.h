@@ -183,8 +183,9 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_BackSpace, spawn, SHCMD("kill -HUP $(pidof dwm)")},
 
     {MODKEY, XK_Tab, view, {0}},
-    /* { MODKEY|ShiftMask,		XK_Tab,	       spawn, SHCMD("")
-       }, */
+    // { MODKEY|ShiftMask,		XK_Tab,	       spawn, SHCMD("") },
+    {MODKEY, XK_dead_tilde, spawn, SHCMD("dunstctl close")},
+    {MODKEY | ShiftMask, XK_dead_tilde, spawn, SHCMD("dunstctl start")},
     {MODKEY, XK_q, killclient, {0}},
     {MODKEY | ShiftMask, XK_q, spawn, {.v = (const char *[]){"sysact", NULL}}},
     {MODKEY, XK_w, spawn, {.v = (const char *[]){BROWSER, NULL}}},

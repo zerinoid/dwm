@@ -200,10 +200,7 @@ static const Key keys[] = {
     {MODKEY | ShiftMask, XK_e, spawn,
      SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n -e "
            "\"(my/insert-todo-at-top)\"")},
-    {MODKEY,
-     XK_r,
-     spawn,
-     {.v = (const char *[]){TERMINAL, "-e", "lfub", NULL}}},
+    {MODKEY, XK_r, spawn, {.v = (const char *[]){TERMINAL, "-e", "lf", NULL}}},
     {MODKEY | ShiftMask,
      XK_r,
      spawn,

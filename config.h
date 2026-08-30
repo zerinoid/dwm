@@ -21,7 +21,7 @@ static int smartgaps =
 static int showbar = 1; /* 0 means no bar */
 static int topbar = 1;  /* 0 means bottom bar */
 static char *fonts[] = {
-    "monospace:size=10",
+    "monospace:size=9.5",
     "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"};
 static char normbgcolor[] = "#222222";
 static char normbordercolor[] = "#444444";
@@ -378,7 +378,10 @@ static const Key keys[] = {
      XF86XK_AudioPause,
      spawn,
      {.v = (const char *[]){"mpc", "pause", NULL}}},
-    {0, XF86XK_AudioPlay, spawn, {.v = (const char *[]){"mpc", "play", NULL}}},
+    {0,
+     XF86XK_AudioPlay,
+     spawn,
+     {.v = (const char *[]){"mpc", "toggle", NULL}}},
     {0, XF86XK_AudioStop, spawn, {.v = (const char *[]){"mpc", "stop", NULL}}},
     {0,
      XF86XK_AudioRewind,

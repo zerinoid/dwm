@@ -183,16 +183,18 @@ static const Key keys[] = {
             TAGKEYS(XK_9, 8){MODKEY, XK_0, view, {.ui = ~0}},
     {MODKEY | ShiftMask, XK_0, tag, {.ui = ~0}},
     {MODKEY, XK_minus, spawn,
-     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -44 $(pidof "
+     SHCMD("pulsemixer --change-volume -3; kill -44 $(pidof "
            "dwmblocks)")},
     {MODKEY | ShiftMask, XK_minus, spawn,
-     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-; kill -44 $(pidof "
+     SHCMD("pulsemixer --change-volume -9; kill -44 $(pidof "
            "dwmblocks)")},
     {MODKEY, XK_equal, spawn,
-     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -44 $(pidof "
+     SHCMD("pulsemixer --change-volume +3; pulsemixer --unmute; "
+           "kill -44 $(pidof "
            "dwmblocks)")},
     {MODKEY | ShiftMask, XK_equal, spawn,
-     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+; kill -44 $(pidof "
+     SHCMD("pulsemixer --change-volume +9; pulsemixer --unmute; "
+           "kill -44 $(pidof "
            "dwmblocks)")},
     {MODKEY, XK_BackSpace, spawn, {.v = (const char *[]){"sysact", NULL}}},
     {MODKEY | ShiftMask, XK_BackSpace, spawn, SHCMD("kill -HUP $(pidof dwm)")},
@@ -317,7 +319,7 @@ static const Key keys[] = {
      spawn,
      {.v = (const char *[]){TERMINAL, "-e", "ncmpcpp", NULL}}},
     {MODKEY | ShiftMask, XK_m, spawn,
-     SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof "
+     SHCMD("amixer -D pulse set Master 1+ toggle; kill -44 $(pidof "
            "dwmblocks)")},
     {MODKEY, XK_comma, spawn, {.v = (const char *[]){"mpc", "prev", NULL}}},
     {MODKEY | ShiftMask,
@@ -379,14 +381,13 @@ static const Key keys[] = {
     {MODKEY, XK_Scroll_Lock, spawn, SHCMD("killall screenkey || screenkey &")},
 
     {0, XF86XK_AudioMute, spawn,
-     SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof "
+     SHCMD("pulsemixer --toggle-mute; kill -44 $(pidof "
            "dwmblocks)")},
     {0, XF86XK_AudioRaiseVolume, spawn,
-     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%- && wpctl set-volume "
-           "@DEFAULT_AUDIO_SINK@ 3%+; kill -44 $(pidof dwmblocks)")},
+     SHCMD("pulsemixer --change-volume +3; pulsemixer --unmute; "
+           "kill -44 $(pidof dwmblocks)")},
     {0, XF86XK_AudioLowerVolume, spawn,
-     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%+ && wpctl set-volume "
-           "@DEFAULT_AUDIO_SINK@ 3%-; kill -44 $(pidof dwmblocks)")},
+     SHCMD("pulsemixer --change-volume -3; kill -44 $(pidof dwmblocks)")},
     {0, XF86XK_AudioPrev, spawn, {.v = (const char *[]){"mpc", "prev", NULL}}},
     {0, XF86XK_AudioNext, spawn, {.v = (const char *[]){"mpc", "next", NULL}}},
     {0,

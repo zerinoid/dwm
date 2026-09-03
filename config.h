@@ -277,13 +277,13 @@ static const Key keys[] = {
     // {.v = (const char *[]){"passmenu", NULL}}},
     {MODKEY, XK_f, togglefullscr, {0}},
     {MODKEY | ShiftMask, XK_f, setlayout, {.v = &layouts[8]}},
-    {MODKEY, XK_g, setmfact, {.f = -0.05}},
+    {MODKEY, XK_g, shifttag, {.i = -1}},
     {MODKEY, XK_h, shiftview, {.i = -1}},
-    {MODKEY | ShiftMask, XK_h, shifttag, {.i = -1}},
+    {MODKEY | ShiftMask, XK_h, setmfact, {.f = -0.05}},
     /* J and K are automatically bound above in STACKEYS */
     {MODKEY, XK_l, shiftview, {.i = 1}},
-    {MODKEY | ShiftMask, XK_l, shifttag, {.i = 1}},
-    {MODKEY, XK_ccedilla, setmfact, {.f = +0.05}},
+    {MODKEY | ShiftMask, XK_l, setmfact, {.f = +0.05}},
+    {MODKEY, XK_ccedilla, shifttag, {.i = 1}},
     {MODKEY, XK_apostrophe, togglescratch, {.ui = 1}},
     /* { MODKEY|ShiftMask,		XK_apostrophe, spawn, SHCMD("")
        }, */

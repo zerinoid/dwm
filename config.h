@@ -309,8 +309,10 @@ static const Key keys[] = {
        }, */
     /* V is automatically bound above in STACKKEYS */
     {MODKEY, XK_b, togglebar, {0}},
-    /* { MODKEY|ShiftMask,		XK_b,          spawn, SHCMD("")
-       }, */
+    {MODKEY | ShiftMask,
+     XK_b,
+     spawn,
+     {.v = (const char *[]){"blueman-manager", NULL}}},
     {MODKEY,
      XK_n,
      spawn,
@@ -336,10 +338,10 @@ static const Key keys[] = {
      spawn,
      {.v = (const char *[]){"mpc", "repeat", NULL}}},
 
-    {MODKEY, XK_Left, focusmon, {.i = -1}},
-    {MODKEY | ShiftMask, XK_Left, tagmon, {.i = -1}},
-    {MODKEY, XK_Right, focusmon, {.i = +1}},
-    {MODKEY | ShiftMask, XK_Right, tagmon, {.i = +1}},
+    {MODKEY, XK_slash, focusmon, {.i = -1}},
+    {MODKEY | ShiftMask, XK_slash, tagmon, {.i = -1}},
+    // {MODKEY, XK_Right, focusmon, {.i = +1}},
+    // {MODKEY | ShiftMask, XK_Right, tagmon, {.i = +1}},
 
     {MODKEY, XK_Page_Up, shiftview, {.i = -1}},
     {MODKEY | ShiftMask, XK_Page_Up, shifttag, {.i = -1}},

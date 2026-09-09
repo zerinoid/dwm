@@ -39,10 +39,12 @@ static char normfgcolor[] = "#bbbbbb";
 static char selfgcolor[] = "#eeeeee";
 static char selbordercolor[] = "#770777";
 static char selbgcolor[] = "#005577";
+static char stickybordercolor[] = "#B8976E";
 static char *colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
     [SchemeSel] = {selfgcolor, selbgcolor, selbordercolor},
+    [SchemeSticky] = {selfgcolor, selbgcolor, stickybordercolor},
 };
 
 typedef struct {
@@ -139,6 +141,8 @@ static const char *termcmd[] = {TERMINAL, NULL};
 ResourcePref resources[] = {
     {"color0", STRING, &normbordercolor},
     {"color8", STRING, &selbordercolor},
+    {"color3", STRING, &stickybordercolor},
+    {"stickybordercolor", STRING, &stickybordercolor},
     {"color0", STRING, &normbgcolor},
     {"color4", STRING, &normfgcolor},
     {"color0", STRING, &selfgcolor},

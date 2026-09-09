@@ -90,7 +90,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel };                  /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeSticky };                  /* color schemes */
 enum {
   NetSupported,
   NetWMName,
@@ -565,7 +565,7 @@ void swallow(Client *p, Client *c) {
   wc.border_width = p->bw;
   XConfigureWindow(dpy, p->win, CWBorderWidth, &wc);
   XMoveResizeWindow(dpy, p->win, p->x, p->y, p->w, p->h);
-  XSetWindowBorder(dpy, p->win, scheme[SchemeNorm][ColBorder].pixel);
+  XSetWindowBorder(dpy, p->win, scheme[p->issticky ? SchemeSticky : SchemeNorm][ColBorder].pixel);
 
   arrange(p->mon);
   configure(p);
@@ -588,7 +588,7 @@ void unswallow(Client *c) {
   wc.border_width = c->bw;
   XConfigureWindow(dpy, c->win, CWBorderWidth, &wc);
   XMoveResizeWindow(dpy, c->win, c->x, c->y, c->w, c->h);
-  XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
+  XSetWindowBorder(dpy, c->win, scheme[c->issticky ? SchemeSticky : SchemeNorm][ColBorder].pixel);
 
   setclientstate(c, NormalState);
   focus(NULL);
@@ -1084,7 +1084,7 @@ void focus(Client *c) {
     detachstack(c);
     attachstack(c);
     grabbuttons(c, 1);
-    XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
+    XSetWindowBorder(dpy, c->win, scheme[c->issticky ? SchemeSticky : SchemeSel][ColBorder].pixel);
     setfocus(c);
   } else {
     XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
@@ -1343,7 +1343,7 @@ void manage(Window w, XWindowAttributes *wa) {
 
   wc.border_width = c->bw;
   XConfigureWindow(dpy, w, CWBorderWidth, &wc);
-  XSetWindowBorder(dpy, w, scheme[SchemeNorm][ColBorder].pixel);
+  XSetWindowBorder(dpy, w, scheme[c->issticky ? SchemeSticky : SchemeNorm][ColBorder].pixel);
   configure(c); /* propagates border_width, if size doesn't change */
   updatewindowtype(c);
   updatesizehints(c);
@@ -2170,6 +2170,8 @@ void togglesticky(const Arg *arg) {
   if (!selmon->sel)
     return;
   selmon->sel->issticky = !selmon->sel->issticky;
+  XSetWindowBorder(dpy, selmon->sel->win,
+                   scheme[selmon->sel->issticky ? SchemeSticky : SchemeSel][ColBorder].pixel);
   arrange(selmon);
 }
 
@@ -2227,7 +2229,7 @@ void unfocus(Client *c, int setfocus) {
   if (!c)
     return;
   grabbuttons(c, 0);
-  XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
+  XSetWindowBorder(dpy, c->win, scheme[c->issticky ? SchemeSticky : SchemeNorm][ColBorder].pixel);
   if (setfocus) {
     XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
     XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
@@ -2836,10 +2838,18 @@ void zoom(const Arg *arg) {
 }
 
 void xrdb(const Arg *arg) {
+  Client *c;
+  Monitor *m;
+
   load_xresources();
 
   for (int i = 0; i < LENGTH(colors); i++)
     scheme[i] = drw_scm_create(drw, colors[i], 3);
+
+  for (m = mons; m; m = m->next)
+    for (c = m->clients; c; c = c->next)
+      XSetWindowBorder(dpy, c->win,
+                       scheme[c->issticky ? SchemeSticky : (c == m->sel ? SchemeSel : SchemeNorm)][ColBorder].pixel);
 
   focus(NULL);
   arrange(NULL);

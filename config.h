@@ -64,7 +64,7 @@ static const Rule rules[] = {
 	{ TERMCLASS,  "bg",        NULL,            1 << 7,    0,          1,          0,         -1 },
 	{ "St",       "spterm",    NULL,            SPTAG(0),  1,          1,          0,         -1 },
 	{ "St",       "spcalc",    NULL,            SPTAG(1),  1,          1,          0,         -1 },
-	{ "Sxiv",     "float_sc",  NULL,            SPTAG(1),  1,          1,          0,         -1 },
+	{ NULL,       "float_sc",  NULL,            0,         1,          1,          0,         -1 },
 };
 
 /* layout(s) */

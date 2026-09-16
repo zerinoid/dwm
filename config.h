@@ -218,22 +218,22 @@ static const Key keys[] = {
 	/* { MODKEY|ShiftMask,          XK_d,          spawn,          { .v = (const char*[]){ "passmenu", NULL } } }, */
 	{ MODKEY,                       XK_f,          togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_f,          setlayout,      {.v = &layouts[8]} },
-	{ MODKEY,                       XK_g,          shifttag,       {.i = -1 } },
+	{ MODKEY,                       XK_g,          incrgaps,       {.i = -3 } },
 	{ MODKEY,                       XK_h,          shiftview,      {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_h,          setmfact,       {.f = -0.05 } },
 	/* J and K are automatically bound above in STACKKEYS */
 	{ MODKEY,                       XK_l,          shiftview,      {.i = 1 } },
 	{ MODKEY|ShiftMask,             XK_l,          setmfact,       {.f = +0.05 } },
-	{ MODKEY,                       XK_ccedilla,   shifttag,       {.i = 1 } },
+	{ MODKEY,                       XK_ccedilla,   incrgaps,       {.i = +3 } },
 	{ MODKEY,                       XK_apostrophe, togglescratch,  {.ui = 1 } },
 	/* { MODKEY|ShiftMask,          XK_apostrophe, spawn,          SHCMD("") }, */
 	{ MODKEY|ShiftMask,             XK_apostrophe, togglesmartgaps,{0} },
 	{ MODKEY,                       XK_Return,     spawn,          { .v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     togglescratch,  {.ui = 0 } },
 
-	{ MODKEY,                       XK_z,          incrgaps,       {.i = +3 } },
+	{ MODKEY,                       XK_z,          shifttag,       {.i = -1 } },
 	/* { MODKEY|ShiftMask,          XK_z,          spawn,          SHCMD("") }, */
-	{ MODKEY,                       XK_x,          incrgaps,       {.i = -3 } },
+	{ MODKEY,                       XK_x,          shifttag,       {.i = 1 } },
 	/* { MODKEY|ShiftMask,          XK_x,          spawn,          SHCMD("") }, */
 	{ MODKEY,                       XK_c,          spawn,          { .v = (const char*[]){ TERMINAL, "-e", "profanity", NULL } } },
 	/* { MODKEY|ShiftMask,          XK_c,          spawn,          SHCMD("") }, */

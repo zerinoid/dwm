@@ -218,13 +218,13 @@ static const Key keys[] = {
 	/* { MODKEY|ShiftMask,          XK_d,          spawn,          { .v = (const char*[]){ "passmenu", NULL } } }, */
 	{ MODKEY,                       XK_f,          togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_f,          setlayout,      {.v = &layouts[8]} },
-	{ MODKEY,                       XK_g,          incrgaps,       {.i = -3 } },
+	{ MODKEY,                       XK_g,          incrgaps,       {.i = +3 } },
 	{ MODKEY,                       XK_h,          shiftview,      {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_h,          setmfact,       {.f = -0.05 } },
 	/* J and K are automatically bound above in STACKKEYS */
 	{ MODKEY,                       XK_l,          shiftview,      {.i = 1 } },
 	{ MODKEY|ShiftMask,             XK_l,          setmfact,       {.f = +0.05 } },
-	{ MODKEY,                       XK_ccedilla,   incrgaps,       {.i = +3 } },
+	{ MODKEY,                       XK_ccedilla,   incrgaps,       {.i = -3 } },
 	{ MODKEY,                       XK_apostrophe, togglescratch,  {.ui = 1 } },
 	/* { MODKEY|ShiftMask,          XK_apostrophe, spawn,          SHCMD("") }, */
 	{ MODKEY|ShiftMask,             XK_apostrophe, togglesmartgaps,{0} },

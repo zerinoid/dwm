@@ -1757,6 +1757,10 @@ void run(void) {
 }
 
 void runAutostart(void) {
+  if (getenv("DWM_RESTARTING")) {
+    unsetenv("DWM_RESTARTING");
+    return;
+  }
   system("killall -q sb-mpdup; sb-mpdup &");
   system("killall -q dwmblocks; dwmblocks &");
 }
@@ -2927,8 +2931,13 @@ int main(int argc, char *argv[]) {
   scan();
   runAutostart();
   run();
-  if (restart)
+  if (restart) {
+    cleanup();
+    XCloseDisplay(dpy);
+    setenv("DWM_RESTARTING", "1", 1);
     execvp(argv[0], argv);
+    die("dwm: execvp failed");
+  }
   cleanup();
   XCloseDisplay(dpy);
   return EXIT_SUCCESS;

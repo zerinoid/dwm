@@ -3,7 +3,7 @@
 /* Constants */
 #define TERMINAL "alacritty"
 #define TERMCLASS "Alacritty"
-#define BROWSER "microsoft-edge"
+#define BROWSER "google-chrome"
 
 /* appearance */
 static unsigned int borderpx            = 3;        /* border pixel of windows */
@@ -181,7 +181,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_q,          killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_q,          spawn,          { .v = (const char*[]){ "sysact", NULL } } },
 	{ MODKEY,                       XK_w,          spawn,          { .v = (const char*[]){ BROWSER, NULL } } },
-	{ MODKEY|ShiftMask,             XK_w,          spawn,          { .v = (const char*[]){ TERMINAL, "-e", "nmtui", NULL } } },
+	{ MODKEY|ShiftMask,             XK_w,          spawn,          { .v = (const char*[]){ TERMINAL, "-e", "impala-nm", NULL } } },
 	/* { MODKEY,                    XK_e,          spawn,          SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+12 dwmblocks") }, */
 	{ MODKEY,                       XK_e,          spawn,          SHCMD("emacsclient -s $EMACS_SERVER_SOCKET -c -n") },
 	/* { MODKEY|ShiftMask,          XK_e,          spawn,          { .v = (const char*[]){ TERMINAL, "-e", "abook", NULL } } }, */
@@ -235,7 +235,7 @@ static const Key keys[] = {
 	/* { MODKEY|ShiftMask,          XK_z,          spawn,          SHCMD("") }, */
 	{ MODKEY,                       XK_x,          shifttag,       {.i = 1 } },
 	/* { MODKEY|ShiftMask,          XK_x,          spawn,          SHCMD("") }, */
-	{ MODKEY,                       XK_c,          spawn,          { .v = (const char*[]){ TERMINAL, "-e", "profanity", NULL } } },
+	{ MODKEY,                       XK_c,          spawn,          { .v = (const char*[]){ "kunst_handler", NULL } } },
 	/* { MODKEY|ShiftMask,          XK_c,          spawn,          SHCMD("") }, */
 	/* V is automatically bound above in STACKKEYS */
 	{ MODKEY,                       XK_b,          togglebar,      {0} },
